@@ -12,7 +12,7 @@ WORDSFILES = ['adjectives', 'nouns', 'verbs', 'adverbs']
 UNACCEPTABLECHARS = [' ', '-', '_']
 
 
-def parse_args():
+def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description='generate a "XKCD-style" random password (https://xkcd.com/936/)')
     parser.add_argument('--maxlen', '-m', help='Maximum length of password', type=int, default=DEFAULT_MAXLEN)
     parser.add_argument('--wordlength', '-w', help='length of words', type=int, default=DEFAULT_WORDLENGTH)
@@ -42,6 +42,7 @@ def pickword(lines: list, wordlength: int = None) -> str:
         print("ERROR: cannot find suitable words with this length")
         exit(1)
 
+
 def readwordsfile(path: str) -> list:
     try:
         with open(path) as file:
@@ -54,7 +55,7 @@ def readwordsfile(path: str) -> list:
         exit(3)
 
 
-def main():
+def gen_xkcdpass() -> str:
     args = parse_args()
     scriptdir = os.path.dirname(os.path.realpath(__file__))
     words = {}
@@ -62,11 +63,11 @@ def main():
     for wordtype in WORDSFILES:
         words[wordtype] = readwordsfile(f'{scriptdir}/words.{wordtype}')
         passphrase.append(pickword(words[wordtype], args.wordlength))
-    print('-'.join(passphrase)[:args.maxlen])
+    return'-'.join(passphrase)[:args.maxlen]
 
 
 if __name__ == '__main__':
-    main()
+    print(gen_xkcdpass())
 
 
 
