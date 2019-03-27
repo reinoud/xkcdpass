@@ -32,16 +32,26 @@ def acceptable(word: str, length: int = None) -> bool:
 
 def pickword(lines: list, wordlength: int = None) -> str:
     linenumber = random.randint(1, len(lines))
-    while True:
-        word = lines[linenumber].strip().lower()
-        if acceptable(word, wordlength):
-            return word
-        linenumber += 1
-
+    try:
+        while True:
+            word = lines[linenumber].strip().lower()
+            if acceptable(word, wordlength):
+                return word
+            linenumber += 1
+    except IndexError:
+        print("ERROR: cannot find suitable words with this length")
+        exit(1)
 
 def readwordsfile(path: str) -> list:
-    with open(path) as file:
-        return file.readlines()
+    try:
+        with open(path) as file:
+            return file.readlines()
+    except FileNotFoundError:
+        print(f"ERROR: could not find file {path}")
+        exit(2)
+    except Exception as e:
+        print(f"ERROR while reading file {path}: {e}")
+        exit(3)
 
 
 def main():
@@ -52,10 +62,7 @@ def main():
     for wordtype in WORDSFILES:
         words[wordtype] = readwordsfile(f'{scriptdir}/words.{wordtype}')
         passphrase.append(pickword(words[wordtype], args.wordlength))
-
-    xkcdpass = '-'.join(passphrase)
-    xkcdpass = xkcdpass[:args.maxlen]
-    print(xkcdpass)
+    print('-'.join(passphrase)[:args.maxlen])
 
 
 if __name__ == '__main__':
