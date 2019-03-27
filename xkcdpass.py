@@ -3,34 +3,59 @@
 # xkcdpass - generate passwords in 'XKCD style'
 
 import argparse
+import os
 import random
 
-DEFAULT_NUMWORDS=4
 DEFAULT_MAXLEN=None
-DEFAULT_WORDSFILE= '/usr/share/dict/web2a'
+DEFAULT_WORDLENGTH=8
+WORDSFILES = ['adjectives', 'nouns', 'verbs', 'adverbs']
+UNACCEPTABLECHARS = [' ', '-', '_']
 
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--numwords', '-n', help='number of words', type=int, default=DEFAULT_NUMWORDS)
     parser.add_argument('--maxlen', '-m', help='Maximum length of password', type=int, default=DEFAULT_MAXLEN)
-    parser.add_argument('--dictionaryfile', '-d', help='dictionary file to use', default=DEFAULT_WORDSFILE)
+    parser.add_argument('--wordlength', '-w', help='length of words', type=int, default=DEFAULT_WORDLENGTH)
     return parser.parse_args()
+
+
+def acceptable(word:str, length:int=None) -> bool:
+    if word is None or len(word) == 0:
+        return False
+    for char in UNACCEPTABLECHARS:
+        if char in word:
+            return False
+    if length is not None and len(word) != length:
+        return False
+    return True
+
+
+def pickword(lines:list, wordlength:int=None) -> str:
+    linenumber = random.randint(1, len(lines))
+    while True:
+        word = lines[linenumber].strip().lower()
+        if acceptable(word, wordlength):
+            return word
+        linenumber += 1
+
+
+def readwordsfile(path:str) -> list:
+    with open(path) as file:
+        return file.readlines()
 
 
 def main():
     args = parse_args()
-    with open(args.dictionaryfile) as wordsfile:
-        lines=wordsfile.readlines()
-        xkcdpasswords = []
-        for line in range(args.numwords):
-            words = lines[random.randint(1, len(lines))].strip().lower().replace('-', ' ').split()
-            xkcdpasswords += words
+    scriptdir = os.path.dirname(os.path.realpath(__file__))
+    words = {}
+    passphrase = []
+    for wordtype in WORDSFILES:
+        words[wordtype] = readwordsfile(f'{scriptdir}/words.{wordtype}')
+        passphrase.append(pickword(words[wordtype], args.wordlength))
 
-        xkcdpass = '-'.join(xkcdpasswords[0:args.numwords])
-        xkcdpass = xkcdpass[:args.maxlen]
-        print(xkcdpass[:-1])
-
+    xkcdpass = '-'.join(passphrase)
+    xkcdpass = xkcdpass[:args.maxlen]
+    print(xkcdpass)
 
 if __name__ == '__main__':
     main()
