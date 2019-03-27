@@ -31,7 +31,7 @@ def acceptable(word: str, length: int = None) -> bool:
 
 
 def pickword(lines: list, wordlength: int = None) -> str:
-    linenumber = random.randint(1, len(lines))
+    linenumber = random.randint(1, int(len(lines)/2))
     try:
         while True:
             word = lines[linenumber].strip().lower()
