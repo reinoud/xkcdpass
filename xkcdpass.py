@@ -63,7 +63,7 @@ def gen_xkcdpass() -> str:
     for wordtype in WORDSFILES:
         words[wordtype] = readwordsfile(f'{scriptdir}/words.{wordtype}')
         passphrase.append(pickword(words[wordtype], args.wordlength))
-    return'-'.join(passphrase)[:args.maxlen]
+    return '-'.join(passphrase)[:args.maxlen]
 
 
 if __name__ == '__main__':
