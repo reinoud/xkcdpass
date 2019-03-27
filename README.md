@@ -36,3 +36,10 @@ Help text:
                             Maximum length of password
       --wordlength WORDLENGTH, -w WORDLENGTH
                             length of words
+                            
+                            
+## Installation
+
+- make sure Python 3 is available on your system
+- put script and word files in the same directory somewhere
+- symlink python script from a directory in your path (e.g. `ln -s /home/reinoud/scripts/xkcd/xkcdpass.py /usr/bin/xkcd`)
