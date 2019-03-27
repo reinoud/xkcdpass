@@ -44,4 +44,4 @@ Help text:
 
 - make sure Python 3 is available on your system
 - put script and word files in the same directory somewhere (in a git clone)
-- symlink python script from a directory in your path (e.g. `ln -s /home/reinoud/scripts/xkcd/xkcdpass.py /usr/bin/xkcdpass`)
+- symlink python script from a directory in your path (e.g. `ln -s /home/reinoud/git/xkcdpass/xkcdpass.py /usr/bin/xkcdpass`)
