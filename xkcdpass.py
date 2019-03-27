@@ -6,20 +6,20 @@ import argparse
 import os
 import random
 
-DEFAULT_MAXLEN=None
-DEFAULT_WORDLENGTH=8
+DEFAULT_MAXLEN = None
+DEFAULT_WORDLENGTH = 8
 WORDSFILES = ['adjectives', 'nouns', 'verbs', 'adverbs']
 UNACCEPTABLECHARS = [' ', '-', '_']
 
 
 def parse_args():
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description='generate a "XKCD-style" random password (https://xkcd.com/936/)')
     parser.add_argument('--maxlen', '-m', help='Maximum length of password', type=int, default=DEFAULT_MAXLEN)
     parser.add_argument('--wordlength', '-w', help='length of words', type=int, default=DEFAULT_WORDLENGTH)
     return parser.parse_args()
 
 
-def acceptable(word:str, length:int=None) -> bool:
+def acceptable(word: str, length: int = None) -> bool:
     if word is None or len(word) == 0:
         return False
     for char in UNACCEPTABLECHARS:
@@ -30,7 +30,7 @@ def acceptable(word:str, length:int=None) -> bool:
     return True
 
 
-def pickword(lines:list, wordlength:int=None) -> str:
+def pickword(lines: list, wordlength: int = None) -> str:
     linenumber = random.randint(1, len(lines))
     while True:
         word = lines[linenumber].strip().lower()
@@ -39,7 +39,7 @@ def pickword(lines:list, wordlength:int=None) -> str:
         linenumber += 1
 
 
-def readwordsfile(path:str) -> list:
+def readwordsfile(path: str) -> list:
     with open(path) as file:
         return file.readlines()
 
@@ -56,6 +56,7 @@ def main():
     xkcdpass = '-'.join(passphrase)
     xkcdpass = xkcdpass[:args.maxlen]
     print(xkcdpass)
+
 
 if __name__ == '__main__':
     main()
