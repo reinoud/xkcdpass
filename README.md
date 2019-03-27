@@ -4,6 +4,8 @@ Generate a "xkcd-style" random password.
 Passwords contain an adjective, noun, verb, adverb, to have a change to construct a sentence. At least it might 
 be pronouncable and memorizable, while still being quite safe. (there are discussions about this)
 
+See https://xkcd.com/936/ for how this started originally
+
 ## Usage
 
     $ xkcdpass
