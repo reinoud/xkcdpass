@@ -45,7 +45,7 @@ def pickword(lines: list, wordlength: int = None) -> str:
 
 def readwordsfile(path: str) -> list:
     try:
-        with open(path) as file:
+        with open(path, 'r') as file:
             return file.readlines()
     except FileNotFoundError:
         print(f"ERROR: could not find file {path}")
