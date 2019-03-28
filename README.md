@@ -1,7 +1,7 @@
 # XKCDPASS
 
 Generate a "xkcd-style" random password.
-Passwords contain an adjective, noun, verb, adverb, to have a change to construct a sentence. At least it might 
+Passwords contain an adjective, noun, verb, adverb, to have a chance to construct a sentence. At least it might 
 be pronouncable and memorizable, while still being quite safe. (there are 
 [discussions](https://www.schneier.com/blog/archives/2014/03/choosing_secure_1.html) about this, but it still is better
 than 'welcome123')
