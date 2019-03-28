@@ -16,25 +16,25 @@ See https://xkcd.com/936/ for how this started originally
 
 Limit (or extend) word length:
 
-    $ xkcdpass -w 4
+    $ xkcdpass --wordlength 4
     deft-roan-cork-ever
     
-    $ xkcdpass -w 10
+    $ xkcdpass --wordlength 10
     assumptive-gerrididae-sensualize-constantly
 
 Limit total length:
 
-    $ xkcdpass -m 15
+    $ xkcdpass --maxlength 15
     gracious-anecdo
     
 Use random-length words (more secure since we have more words in the list to choose from):
 
-    $ xkcdpass -r
+    $ xkcdpass --randomwordlength
     mongol-bud-feel-elaborately
     
 Help text:
 
-    $ xkcdpass -h
+    $ xkcdpass --help
     usage: xkcdpass [-h] [--maxlen MAXLEN] [--wordlength WORDLENGTH]
                     [--randomworklength]
     
