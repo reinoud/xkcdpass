@@ -58,7 +58,7 @@ def gen_xkcdpass() -> str:
     words = {}
     passphrase = []
     for wordtype in WORDSFILES:
-        words[wordtype] = readwordsfile(f'{scriptdir}/xwords.{wordtype}')
+        words[wordtype] = readwordsfile(f'{scriptdir}/words.{wordtype}')
         passphrase.append(pickword(words[wordtype], args.wordlength))
     return '-'.join(passphrase)[:args.maxlen]
 
