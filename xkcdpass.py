@@ -64,11 +64,10 @@ def gen_xkcdpass() -> str:
         return ' '.join(optionlist)
     wordlength = None if args.randomwordlength else args.wordlength
     scriptdir = os.path.dirname(os.path.realpath(__file__))
-    words = {}
     passphrase = []
     for wordtype in WORDSFILES:
-        words[wordtype] = readwordsfile(f'{scriptdir}/words.{wordtype}')
-        passphrase.append(pickword(words[wordtype], wordlength))
+        words = readwordsfile(f'{scriptdir}/words.{wordtype}')
+        passphrase.append(pickword(words, wordlength))
     return '-'.join(passphrase)[:args.maxlength]
 
 
