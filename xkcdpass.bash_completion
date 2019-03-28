@@ -1,0 +1,4 @@
+# bash completion for xkcdpass
+# link this file in your bash_completion.d directory
+
+complete -W "$(xkcdpass -c)" xkcdpass

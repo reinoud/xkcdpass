@@ -12,7 +12,7 @@ WORDSFILES = ['adjectives', 'nouns', 'verbs', 'adverbs']
 UNACCEPTABLECHARS = [' ', '-', '_']
 
 
-def parse_args() -> argparse.Namespace:
+def parse_args() -> tuple:
     parser = argparse.ArgumentParser(description='generate a "XKCD-style" random password (https://xkcd.com/936/)')
     parser.add_argument('--maxlength', '-m', help=f'Maximum length of password (default {DEFAULT_MAXLEN})',
                         type=int, default=DEFAULT_MAXLEN)
@@ -20,7 +20,9 @@ def parse_args() -> argparse.Namespace:
                         type=int, default=DEFAULT_WORDLENGTH)
     parser.add_argument('--randomwordlength', '-r', help='use random-length words (more secure)', action='store_true',
                         default=False)
-    return parser.parse_args()
+    parser.add_argument('--completion', '-c', help='show options for facilicating bash completion', action='store_true',
+                        default=False)
+    return parser.parse_args(), parser._option_string_actions.keys()
 
 
 def acceptable(word: str, length: int = None) -> bool:
@@ -57,7 +59,9 @@ def readwordsfile(path: str) -> list:
 
 
 def gen_xkcdpass() -> str:
-    args = parse_args()
+    args, optionlist = parse_args()
+    if args.completion:
+        return ' '.join(optionlist)
     wordlength = None if args.randomwordlength else args.wordlength
     scriptdir = os.path.dirname(os.path.realpath(__file__))
     words = {}
