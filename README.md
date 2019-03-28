@@ -2,7 +2,9 @@
 
 Generate a "xkcd-style" random password.
 Passwords contain an adjective, noun, verb, adverb, to have a change to construct a sentence. At least it might 
-be pronouncable and memorizable, while still being quite safe. (there are discussions about this)
+be pronouncable and memorizable, while still being quite safe. (there are 
+[discussions](https://www.schneier.com/blog/archives/2014/03/choosing_secure_1.html) about this, but it still is better
+than 'welcome123')
 
 See https://xkcd.com/936/ for how this started originally
 
@@ -25,20 +27,27 @@ Limit total length:
     $ xkcdpass -m 15
     gracious-anecdo
     
+Use random-length words (more secure since we have more words in the list to choose from):
+
+    $ xkcdpass -r
+    mongol-bud-feel-elaborately
+    
 Help text:
 
     $ xkcdpass -h
     usage: xkcdpass [-h] [--maxlen MAXLEN] [--wordlength WORDLENGTH]
+                    [--randomworklength]
     
     generate a "XKCD-style" random password (https://xkcd.com/936/)
     
     optional arguments:
       -h, --help            show this help message and exit
       --maxlen MAXLEN, -m MAXLEN
-                            Maximum length of password
+                            Maximum length of password (default None)
       --wordlength WORDLENGTH, -w WORDLENGTH
-                            length of words
-                            
+                            length of words (default 8)
+      --randomworklength, -r
+                            use random-length words (more secure)                            
                             
 ## Installation
 
