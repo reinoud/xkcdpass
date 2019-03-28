@@ -39,8 +39,7 @@ def pickword(lines: list, wordlength: int = None) -> str:
                 return word
             linenumber += 1
     except IndexError:
-        print("ERROR: cannot find suitable words with this length")
-        exit(1)
+        raise Exception("xkcd pass ERROR: cannot find suitable words with this length")
 
 
 def readwordsfile(path: str) -> list:
@@ -48,11 +47,9 @@ def readwordsfile(path: str) -> list:
         with open(path, 'r') as file:
             return file.readlines()
     except FileNotFoundError:
-        print(f"ERROR: could not find file {path}")
-        exit(2)
+        raise FileNotFoundError(f"xkcd pass ERROR: could not find file {path}")
     except Exception as e:
-        print(f"ERROR while reading file {path}: {e}")
-        exit(3)
+        raise Exception(f"xkcd pass ERROR while reading file {path}: {e}")
 
 
 def gen_xkcdpass() -> str:
@@ -61,13 +58,17 @@ def gen_xkcdpass() -> str:
     words = {}
     passphrase = []
     for wordtype in WORDSFILES:
-        words[wordtype] = readwordsfile(f'{scriptdir}/words.{wordtype}')
+        words[wordtype] = readwordsfile(f'{scriptdir}/xwords.{wordtype}')
         passphrase.append(pickword(words[wordtype], args.wordlength))
     return '-'.join(passphrase)[:args.maxlen]
 
 
 if __name__ == '__main__':
-    print(gen_xkcdpass())
+    try:
+        print(gen_xkcdpass())
+    except Exception as e:
+        print(e)
+        exit(1)
 
 
 
